@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.10)
+project(ABY-aes)
+
+find_package(ENCRYPTO_utils QUIET)
+if(ENCRYPTO_utils_FOUND)
+    message(STATUS "Found ENCRYPTO_utils")
+elseif (NOT ENCRYPTO_utils_FOUND AND NOT TARGET ENCRYPTO_utils::encrypto_utils)
+    message("ENCRYPTO_utils was not found: add ENCRYPTO_utils subdirectory")
+    add_subdirectory(extern/ENCRYPTO_utils)
+endif()
+find_package(ABY QUIET)
+if(ABY_FOUND)
+    message(STATUS "Found ABY")
+elseif (NOT ABY_FOUND AND NOT TARGET ABY::aby)
+    message("ABY was not found: add ABY subdirectory")
+    add_subdirectory(extern/ABY)
+endif()
+
+
+add_subdirectory(src)
